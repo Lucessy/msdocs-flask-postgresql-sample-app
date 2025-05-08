@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Imágenes PECL2{% endblock %}
+{% block content %}
+<h1 class="mt-4">Imágenes enviadas (PECL2)</h1>
+<table class="table table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Rojo</th>
+            <th>Verde</th>
+            <th>Azul</th>
+            <th>Usuario</th>
+            <th>Tipo</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for img in imagenes %}
+            <tr>
+                <td>{{ img.nombre_fichero }}</td>
+                <td>{{ img.pixeles_rojo }}</td>
+                <td>{{ img.pixeles_verde }}</td>
+                <td>{{ img.pixeles_azul }}</td>
+                <td>{{ img.usuario }}</td>
+                <td>{{ img.tipo_imagen or "—" }}</td>
+                <td>{{ img.fecha_envio.strftime("%d/%m/%Y %H:%M") }}</td>
+            </tr>
+        {% else %}
+            <tr><td colspan="7" class="text-center">No hay datos registrados</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
