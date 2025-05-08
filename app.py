@@ -44,6 +44,25 @@ def mostrar_imagenes_pecl2():
     imagenes = ImagenPECL2.query.all()
     return render_template('imagenes_pecl2.html', imagenes=imagenes)
 
+@app.route('/enviar-texto', methods=['POST'])
+def recibir_texto():
+    data = request.get_json()
+
+    imagen = ImagenPECL2(
+        nombre_fichero=data.get("nombre_fichero"),
+        pixeles_rojo=data.get("pixeles_rojo"),
+        pixeles_verde=data.get("pixeles_verde"),
+        pixeles_azul=data.get("pixeles_azul"),
+        usuario=data.get("usuario"),
+        tipo_imagen=data.get("tipo_imagen", "original")  # por defecto "original"
+    )
+
+    db.session.add(imagen)
+    db.session.commit()
+
+    return {"estado": "ok", "id": imagen.id}
+
+
 
 if __name__ == '__main__':
     app.run()
