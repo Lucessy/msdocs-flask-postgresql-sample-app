@@ -14,5 +14,4 @@ class ImagenPECL2(db.Model):
     usuario = db.Column(db.String(100), nullable=False)
     fecha_envio = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     tipo_imagen = db.Column(db.String(50))
-    ruta_imagen = db.Column(db.String(500))
     
