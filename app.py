@@ -41,7 +41,7 @@ def favicon():
 
 @app.route('/', methods=['GET'])
 def mostrar_imagenes_pecl2():
-    imagenes = ImagenPECL2.query.order_by(ImagenPECL2.fecha_envio.desc()).all()
+    imagenes = ImagenPECL2.query.all()
     return render_template('imagenes_pecl2.html', imagenes=imagenes)
 
 
