@@ -58,13 +58,21 @@ def recibir_datos():
             tipo_imagen=data["tipo_imagen"],
             fecha_envio=datetime.now()
         )
-        
+
         db.session.add(imagen)
         db.session.commit()
         return {"estado": "ok"}
     except Exception as e:
         return {"estado": "error", "detalle": str(e)}, 500
 
+
+@app.route("/enviar-datos", methods=["POST"])
+def recibir_texto():
+    data = request.get_json()
+    texto = data.get("mensaje", "")
+    date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"Texto recibido: {texto} a las {date}")
+    return {"estado": "ok", "recibido": texto + " a las " + date}
 
 if __name__ == '__main__':
     app.run()
