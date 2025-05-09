@@ -45,7 +45,8 @@ def mostrar_imagenes_pecl2():
     return render_template('imagenes_pecl2.html', imagenes=imagenes)
 
 @app.route('/enviar-texto', methods=['POST'])
-def recibir_texto():
+@csrf.exempt
+def recibir_json():
     from traceback import format_exc
     try:
         data = request.get_json()
@@ -72,7 +73,7 @@ def recibir_texto():
 
 
 @app.route("/enviar-datos", methods=["POST"])
-def recibir_texto():
+def recibir_mensaje_simple():
     data = request.get_json()
     texto = data.get("mensaje", "")
     date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
