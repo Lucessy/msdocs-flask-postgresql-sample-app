@@ -45,7 +45,6 @@ def mostrar_imagenes_pecl2():
     return render_template('imagenes_pecl2.html', imagenes=imagenes)
 
 @app.route('/enviar-texto', methods=['POST'])
-@csrf.exempt
 def recibir_texto():
     from traceback import format_exc
     try:
@@ -70,7 +69,6 @@ def recibir_texto():
             "detalle": str(e),
             "trace": format_exc()
         }, 500
-
 
 
 @app.route("/enviar-datos", methods=["POST"])
