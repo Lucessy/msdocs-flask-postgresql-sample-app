@@ -45,25 +45,32 @@ def mostrar_imagenes_pecl2():
     return render_template('imagenes_pecl2.html', imagenes=imagenes)
 
 @app.route('/enviar-texto', methods=['POST'])
-def recibir_datos():
-    data = request.get_json()
-
+@csrf.exempt
+def recibir_texto():
+    from traceback import format_exc
     try:
+        data = request.get_json()
+
         imagen = ImagenPECL2(
             nombre_fichero=data["nombre_fichero"],
             pixeles_rojo=data["pixeles_rojo"],
             pixeles_verde=data["pixeles_verde"],
             pixeles_azul=data["pixeles_azul"],
             usuario=data["usuario"],
-            tipo_imagen=data["tipo_imagen"],
+            tipo_imagen=data.get("tipo_imagen", "original"),
             fecha_envio=datetime.now()
         )
-
         db.session.add(imagen)
         db.session.commit()
         return {"estado": "ok"}
     except Exception as e:
-        return {"estado": "error", "detalle": str(e)}, 500
+        db.session.rollback()
+        return {
+            "estado": "error",
+            "detalle": str(e),
+            "trace": format_exc()
+        }, 500
+
 
 
 @app.route("/enviar-datos", methods=["POST"])
