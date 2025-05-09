@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Imágenes PECL2{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+      body {
+          min-height: 75rem;
+          padding-top: 7rem;
+      }
+  </style>
+{% endblock %}
 {% block content %}
 <h1 class="mt-4">Imágenes enviadas (PECL2)</h1>
 
